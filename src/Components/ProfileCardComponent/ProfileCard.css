@@ -1,0 +1,23 @@
+img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid;
+  background-color: #231e39;
+  padding: 2rem;
+  border-radius: 10px;
+}
+.profile-card h3 {
+  color: #9babc7;
+}
+.profile-detail-link {
+  color: #9babc7;
+}

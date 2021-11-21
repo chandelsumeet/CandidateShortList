@@ -1,0 +1,9 @@
+.profile-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: auto;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem;
+}
