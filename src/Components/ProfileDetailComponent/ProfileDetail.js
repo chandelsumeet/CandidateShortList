@@ -23,6 +23,19 @@ const ProfileDetail = () => {
     });
   }, []);
 
+  let totalCandidates = JSON.parse(
+    localStorage.getItem("totalCandidates") || "[]"
+  );
+
+  const filterData = (profile) => {
+    if (totalCandidates.length !== 0) {
+      totalCandidates = totalCandidates.filter((item) => item.id != profile.id);
+    }
+
+    localStorage.setItem("totalCandidates", JSON.stringify(totalCandidates));
+    console.log("after being slected", totalCandidates);
+  };
+
   const selectedCandidate = () => {
     console.log("pushed");
     let selectedData = JSON.parse(localStorage.getItem("selectedData") || "[]");
@@ -37,7 +50,10 @@ const ProfileDetail = () => {
       navigate("/");
     } else {
       selectedData.push(profile);
+
       localStorage.setItem("selectedData", JSON.stringify(selectedData));
+      filterData(profile);
+
       navigate("/");
     }
   };
@@ -58,6 +74,7 @@ const ProfileDetail = () => {
     } else {
       rejectedData.push(profile);
       localStorage.setItem("rejectedData", JSON.stringify(rejectedData));
+      filterData(profile);
       navigate("/");
     }
   };
