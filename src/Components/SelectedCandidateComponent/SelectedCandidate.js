@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./SelectedCandidate.css";
 const SelectedCandidate = () => {
-  const candidates = JSON.parse(localStorage.getItem("selectedData"));
-  console.log(candidates);
+  const dispatch = useDispatch();
+  const selectedCandidate = useSelector(
+    (state) => state.users.selectedCandidate
+  );
   return (
     <div className="profile-card-container">
-      {candidates.map((obj) => {
+      {selectedCandidate.map((obj) => {
         const { Image, id, name } = obj;
         return (
           <div key={id} className="profile-card">

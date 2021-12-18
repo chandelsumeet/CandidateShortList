@@ -1,39 +1,19 @@
 import { findByPlaceholderText } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import { getUsers } from "../../redux/actions/users";
 import ProfileCard from "../ProfileCardComponent/ProfileCard";
+
 import "./ProfileList.css";
 const ProfileList = ({ match }) => {
-  const url = `https://s3-ap-southeast-1.amazonaws.com/he-public-data/users49b8675.json`;
-
-  const [profileList, setPorfileList] = useState([]);
-  const fetchRequest = async (url) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-  };
-
-  const setPorfileListData = async () => {
-    let totalCandidates = JSON.parse(
-      localStorage.getItem("totalCandidates") || "[]"
-    );
-    if (totalCandidates.length === 0) {
-      const response = await fetchRequest(url);
-      setPorfileList(response);
-      response.map((profile) => {
-        totalCandidates.push(profile);
-      });
-      localStorage.setItem("totalCandidates", JSON.stringify(totalCandidates));
-      console.log("totalcandidates Profile List", totalCandidates);
-    } else {
-      setPorfileList(totalCandidates);
-      console.log("totalcandidates Profile List", totalCandidates);
-    }
-  };
-
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
   useEffect(() => {
-    console.log("rerender");
-    setPorfileListData();
+    if (users.length !== 0) {
+      return;
+    }
+    dispatch(getUsers());
   }, []);
 
   return (
@@ -48,7 +28,7 @@ const ProfileList = ({ match }) => {
         </form>
       </div>
       <div className="profile-card-container">
-        {profileList.map((profile) => {
+        {users.map((profile) => {
           return <ProfileCard key={profile.id} profileInfo={profile} />;
         })}
       </div>

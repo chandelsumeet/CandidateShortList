@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./RejectedCandidate.css";
 const RejectedCandidate = () => {
-  const candidates = JSON.parse(localStorage.getItem("rejectedData"));
+  const dispatch = useDispatch();
+  const rejectedCandidate = useSelector(
+    (state) => state.users.rejectedCandidate
+  );
   return (
     <div className="profile-card-container">
-      {candidates.map((obj) => {
+      {rejectedCandidate.map((obj) => {
         const { Image, id, name } = obj;
         return (
           <div key={id} className="profile-card">
